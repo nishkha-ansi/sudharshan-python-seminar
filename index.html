@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Python Project Development and Dissertation | Sudharshan K</title>
+<style>
+:root{--bg:#08111f;--panel:#111e32;--panel2:#172943;--text:#eef5ff;--muted:#aebbd0;--mint:#74e2c2;--blue:#91aaff;--line:#ffffff1c}
+*{box-sizing:border-box;scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(circle at 85% 5%,#20345a 0,transparent 32%),var(--bg);color:var(--text);font:16px/1.65 Arial, sans-serif}
+a{color:inherit;text-decoration:none}.wrap{max-width:1100px;margin:auto;padding:0 22px}
+nav{position:sticky;top:0;z-index:5;background:#08111feF;backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.navinner{max-width:1100px;margin:auto;padding:13px 22px;display:flex;align-items:center;justify-content:space-between;gap:18px}
+.brand{font-weight:900;letter-spacing:1px}.brand span{color:var(--mint)}
+.links{display:flex;gap:15px;flex-wrap:wrap}.links a{font-size:.84rem;color:var(--muted)}.links a:hover{color:var(--mint)}
+.menu{display:none;background:transparent;color:white;border:1px solid var(--line);border-radius:8px;padding:7px 10px}
+.hero{padding:85px 0 70px;display:grid;grid-template-columns:1.2fr .8fr;gap:35px;align-items:center;min-height:530px}
+.eyebrow,.kicker{color:var(--mint);font-size:.76rem;font-weight:bold;letter-spacing:2px;text-transform:uppercase}
+h1{font-size:clamp(2.6rem,6vw,4.8rem);line-height:1.04;letter-spacing:-2px;margin:15px 0}
+.gradient{background:linear-gradient(90deg,var(--mint),var(--blue));color:transparent;background-clip:text}
+.lead,.sub{color:var(--muted);max-width:760px}.lead{font-size:1.08rem}
+.pills{display:flex;gap:9px;flex-wrap:wrap;margin:22px 0}.pill{border:1px solid var(--line);border-radius:30px;padding:7px 12px;font-size:.82rem;color:#dce8fa;background:#ffffff08}
+.cta,.btn{display:inline-block;background:var(--mint);color:#07151a;border:0;border-radius:10px;padding:11px 16px;font-weight:bold;cursor:pointer}
+.art{height:310px;border:1px solid var(--line);border-radius:25px;background:linear-gradient(140deg,#74e2c21c,#91aaff20);display:grid;place-items:center}
+.orbit{width:225px;height:225px;border:1px dashed #ffffff70;border-radius:50%;display:grid;place-items:center;position:relative}
+.core{width:100px;height:100px;border-radius:25px;background:linear-gradient(135deg,var(--mint),var(--blue));display:grid;place-items:center;color:#07151a;font-size:2.4rem;font-weight:900}
+.node{position:absolute;background:var(--panel2);border:1px solid var(--line);padding:8px 11px;border-radius:10px;font-size:.8rem;font-weight:bold}
+.n1{top:0}.n2{right:-35px}.n3{bottom:0}.n4{left:-38px}
+section{padding:70px 0;border-top:1px solid var(--line)}
+h2{font-size:clamp(1.9rem,4vw,2.7rem);line-height:1.15;margin:8px 0 12px}
+h3{margin:0 0 8px}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:24px}
+.card{background:linear-gradient(150deg,var(--panel2),var(--panel));border:1px solid var(--line);border-radius:17px;padding:21px}
+.card p,.card li{color:var(--muted);font-size:.93rem}.icon{font-size:1.5rem;margin-bottom:8px}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:22px;align-items:start}
+.codebox{background:#050a12;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.codehead{padding:10px 14px;background:#15233a;color:var(--muted);font-size:.82rem;display:flex;justify-content:space-between}
+pre{margin:0;padding:16px;overflow:auto;color:#dce8ff;font: .85rem/1.6 Consolas,monospace}
+.output,.result{background:#050a12;color:var(--mint);padding:13px 15px;white-space:pre-wrap;font: .87rem/1.6 Consolas,monospace;border-top:1px solid var(--line);min-height:48px}
+textarea{width:100%;min-height:165px;background:#050a12;color:#dce8ff;border:1px solid var(--line);border-radius:10px;padding:13px;font: .85rem/1.6 Consolas,monospace}
+.actions{display:flex;gap:9px;flex-wrap:wrap;padding:12px 14px}
+.secondary{background:#293c5b;color:white;border:1px solid var(--line)}
+.note{border-left:3px solid var(--blue);background:#91aaff12;padding:12px 15px;border-radius:0 10px 10px 0;color:var(--muted);margin:17px 0;font-size:.9rem}
+label{display:block;color:var(--muted);margin:10px 0 5px}input[type=text],select{width:100%;background:#081426;color:white;border:1px solid var(--line);padding:10px;border-radius:9px}
+.small{font-size:.83rem;color:var(--muted)}.quizq{padding:16px 18px;border-bottom:1px solid var(--line)}.quizq label{display:flex;gap:9px;align-items:center;cursor:pointer}
+footer{text-align:center;color:var(--muted);padding:30px;border-top:1px solid var(--line)}
+@media(max-width:820px){.hero{grid-template-columns:1fr;padding:55px 0}.grid{grid-template-columns:1fr 1fr}.split{grid-template-columns:1fr}.links{display:none}.links.open{display:flex;position:absolute;top:55px;left:0;right:0;background:#08111f;padding:18px;flex-direction:column}.menu{display:block}}
+@media(max-width:560px){.grid{grid-template-columns:1fr}.wrap{padding:0 16px}section{padding:52px 0}.art{height:260px}}
+</style>
+</head>
+<body>
+<nav><div class="navinner">
+ <a class="brand" href="#home">PY<span>•</span>PROJECT</a>
+ <button class="menu" id="menuBtn">☰</button>
+ <div class="links" id="navLinks">
+  <a href="#overview">Overview</a><a href="#automata">Automata</a><a href="#symbolic">Symbolic</a><a href="#events">Events</a><a href="#samples">Sample Codes</a><a href="#eduai">EduAI Project</a><a href="#quiz">Quiz</a>
+ </div>
+</div></nav>
+
+<header class="wrap hero" id="home">
+ <div>
+  <div class="eyebrow">Seminar · Advanced Programming Practice</div>
+  <h1>Python Project<br><span class="gradient">Development</span><br>& Dissertation</h1>
+  <p class="lead">Explore how Python programming paradigms can be used to understand concepts, develop applications, test solutions and present project results.</p>
+  <div class="pills"><span class="pill">Presented by: Sudharshan K</span><span class="pill">Register No: RA2511026010254</span><span class="pill">APP · Unit 5</span></div>
+  <a class="cta" href="#overview">Explore seminar ↓</a>
+ </div>
+ <div class="art"><div class="orbit"><div class="core">Py</div><span class="node n1">Automata</span><span class="node n2">Events</span><span class="node n3">Project</span><span class="node n4">Symbolic</span></div></div>
+</header>
+
+<main>
+<section id="overview"><div class="wrap">
+ <div class="kicker">01 · Introduction</div><h2>What is Python project development?</h2>
+ <p class="sub">Python project development is the process of converting an idea or problem into a working software solution. A project normally includes objectives, design, implementation, testing, results and references.</p>
+ <div class="grid">
+  <article class="card"><div class="icon">🎯</div><h3>Objectives</h3><p>Define the problem and identify what the project should achieve.</p></article>
+  <article class="card"><div class="icon">🧩</div><h3>Design</h3><p>Plan the program structure, inputs, processing and expected outputs.</p></article>
+  <article class="card"><div class="icon">⌨️</div><h3>Implementation</h3><p>Develop the solution using Python code, functions and suitable libraries.</p></article>
+  <article class="card"><div class="icon">🧪</div><h3>Testing</h3><p>Run test cases, compare actual and expected results, and fix errors.</p></article>
+  <article class="card"><div class="icon">📊</div><h3>Results</h3><p>Show the output and explain whether the project objectives were achieved.</p></article>
+  <article class="card"><div class="icon">📚</div><h3>References</h3><p>List the documentation, books and learning resources used.</p></article>
+ </div>
+ <div class="note">The following explanations follow the three paradigms covered in the supplied APP Unit 5 material: Automata-Based Programming, Symbolic Programming and Event Programming.</div>
+</div></section>
+
+<section id="automata"><div class="wrap">
+ <div class="kicker">02 · Programming paradigm</div><h2>Automata-based programming</h2>
+ <p class="sub">An automaton is a mathematical model of computation. A finite automaton reads an input string symbol by symbol and changes its state using transition rules. The unit introduces DFA and NFA.</p>
+ <div class="grid">
+  <article class="card"><h3>DFA</h3><p><b>Deterministic Finite Automaton:</b> for each state and input symbol, exactly one next state is defined.</p></article>
+  <article class="card"><h3>NFA</h3><p><b>Nondeterministic Finite Automaton:</b> a state and input symbol may lead to more than one possible next state.</p></article>
+  <article class="card"><h3>Basic terms</h3><p><b>Alphabet:</b> finite set of symbols. <b>String:</b> sequence of symbols. <b>Language:</b> set of strings over an alphabet.</p></article>
+ </div>
+ <div class="split">
+  <div><h3>Interactive DFA example</h3><p class="small">This DFA accepts binary strings that end with 1.</p>
+   <label for="dfaInput">Enter a binary string</label><input id="dfaInput" type="text" value="101" placeholder="Example: 101">
+   <div class="actions"><button class="btn" id="dfaRun">Check string</button></div><div class="result" id="dfaResult">Result appears here.</div>
+  </div>
+  <div class="card"><h3>How it works</h3><p>Start at q0. When the input symbol is 1, move to q1. When it is 0, move to q0. State q1 is the accepting state.</p><p class="small">The sample code is provided separately in the Sample Codes section below.</p></div>
+ </div>
+</div></section>
+
+<section id="symbolic"><div class="wrap">
+ <div class="kicker">03 · Programming paradigm</div><h2>Symbolic programming</h2>
+ <p class="sub">Symbolic programming represents mathematical expressions using symbols. The APP material introduces SymPy for algebraic manipulation and calculus.</p>
+ <div class="grid">
+  <article class="card"><h3>Algebraic manipulation</h3><p>Expand and simplify expressions while retaining symbolic variables.</p></article>
+  <article class="card"><h3>Calculus</h3><p>Find limits, derivatives, series expansions and integrals symbolically.</p></article>
+  <article class="card"><h3>Equation solving</h3><p>Define symbols and solve mathematical equations using symbolic methods.</p></article>
+ </div>
+ <div class="split">
+  <div class="card"><h3>SymPy library</h3><p>SymPy is a Python library for symbolic mathematics. It supports symbolic variables, expressions, differentiation, integration, simplification and equation solving.</p><p class="small">A Python example using SymPy is available in the Sample Codes section.</p></div>
+  <div class="demo"><h3>Expression expansion demo</h3><p class="small">Explore the expansion of (x + a)².</p><label for="symA">Choose a value for a</label><select id="symA"><option>1</option><option selected>2</option><option>3</option><option>4</option></select><div class="actions"><button class="btn" id="symRun">Expand</button></div><div class="result" id="symResult">Expanded expression appears here.</div></div>
+ </div>
+</div></section>
+
+<section id="events"><div class="wrap">
+ <div class="kicker">04 · Programming paradigm</div><h2>Event-driven programming</h2>
+ <p class="sub">In event-driven programming, the flow of a program is determined by events such as mouse clicks, key presses or other user interactions.</p>
+ <div class="grid">
+  <article class="card"><h3>Event</h3><p>An action or occurrence recognised by a program, such as a button click.</p></article>
+  <article class="card"><h3>Event handler</h3><p>A function or method that performs an action when an event occurs.</p></article>
+  <article class="card"><h3>Event loop</h3><p>Waits for events and dispatches them to the appropriate event handlers.</p></article>
+ </div>
+ <div class="split">
+  <div class="card"><h3>Tkinter library</h3><p>Tkinter is Python's standard GUI library. A typical Tkinter program creates a root window, adds widgets such as buttons and starts the event loop using <code>mainloop()</code>.</p><p class="small">A Tkinter Python example is included separately below. Tkinter creates desktop windows, not browser windows.</p></div>
+  <div class="demo"><h3>Try a click event</h3><p class="small">This browser button demonstrates the event-handler idea.</p><button class="btn" id="eventBtn">Click Me</button><div class="result" id="eventResult">Waiting for a click…</div></div>
+ </div>
+</div></section>
+
+<section id="samples"><div class="wrap">
+ <div class="kicker">05 · Separate code examples</div><h2>Sample Python codes</h2>
+ <p class="sub">These examples are kept separate from the paradigm explanations. The first uses plain Python, the second uses SymPy, and the third uses Tkinter.</p>
+ <div class="card" style="margin:18px 0"><h3>Sample 1 — DFA: binary string ending in 1</h3><div class="codebox"><div class="codehead">Python code</div><pre>def accepts_ending_in_1(text):
+    state = "q0"
+
+    for symbol in text:
+        if symbol == "1":
+            state = "q1"
+        elif symbol == "0":
+            state = "q0"
+        else:
+            return False
+
+    return state == "q1"
+
+print(accepts_ending_in_1("101"))  # True
+print(accepts_ending_in_1("100"))  # False</pre></div><div class="actions"><button class="btn sample-output-btn" data-output="sample1">Run Sample 1</button></div><div class="result" id="sample1Output">Click “Run Sample 1” to see the output.</div><p class="small">This example uses plain Python and can also run in the browser lab below.</p></div>
+ <div class="card" style="margin:18px 0"><h3>Sample 2 — Symbolic mathematics using SymPy</h3><div class="codebox"><div class="codehead">Python code</div><pre>import sympy as sp
+
+x = sp.symbols('x')
+expr = (x + 2)**2
+
+print("Expanded:", sp.expand(expr))
+print("Derivative:", sp.diff(expr, x))
+print("Integral:", sp.integrate(expr, x))
+print("Solve:", sp.solve(expr - 9, x))</pre></div><div class="actions"><button class="btn sample-output-btn" data-output="sample2">Run Sample 2</button></div><div class="result" id="sample2Output">Click “Run Sample 2” to see the output.</div><p class="small">This example requires the SymPy library when run in a Python environment.</p></div>
+ <div class="card" style="margin:18px 0"><h3>Sample 3 — Event-driven GUI using Tkinter</h3><div class="codebox"><div class="codehead">Python code</div><pre>import tkinter as tk
+from tkinter import messagebox
+
+def say_hello():
+    messagebox.showinfo(
+        "Python Event Demo",
+        "Button clicked!"
+    )
+
+root = tk.Tk()
+root.title("Event Demo")
+
+button = tk.Button(
+    root,
+    text="Click Me",
+    command=say_hello
+)
+button.pack(padx=20, pady=20)
+
+root.mainloop()</pre></div><div class="actions"><button class="btn sample-output-btn" data-output="sample3">Run Sample 3</button></div><div class="result" id="sample3Output">Click “Run Sample 3” to see the output.</div><p class="small">This demonstrates the expected desktop GUI behaviour. Tkinter windows cannot open inside a standard browser page.</p></div>
+
+ <h3 style="margin-top:32px">Run a Python example in this webpage</h3>
+ <p class="small">The following lab runs Python in the browser using Pyodide. It requires an internet connection to load the runtime. The default sample uses standard Python.</p>
+ <div class="codebox"><div class="codehead"><span>Editable Python lab</span><span id="pyStatus">Not loaded</span></div>
+ <textarea id="pythonCode" spellcheck="false">def accepts_ending_in_1(text):
+    state = "q0"
+    for symbol in text:
+        if symbol == "1":
+            state = "q1"
+        elif symbol == "0":
+            state = "q0"
+        else:
+            return False
+    return state == "q1"
+
+for sample in ["101", "100", "111", ""]:
+    print(sample, "=>", accepts_ending_in_1(sample))</textarea>
+ <div class="actions"><button class="btn" id="loadPy">Load Python</button><button class="btn" id="runPy">Run code</button><button class="btn secondary" id="resetPy">Reset sample</button></div>
+ <div class="codehead">Output</div><div class="output" id="pythonOutput">Load Python, then run the sample code.</div></div>
+ <div class="note">Pyodide runs supported Python code inside the browser. Some third-party packages may require installation or may not be supported. Tkinter desktop windows are not supported in this browser lab.</div>
+</div></section>
+
+<section id="eduai"><div class="wrap">
+ <div class="kicker">06 · Practical project</div><h2>EduAI — AI-powered learning assistant</h2>
+ <p class="sub">EduAI is a proposed educational assistant that helps students organise learning, practise topics and review their understanding. This project section demonstrates how a Python project can be planned and developed. The current webpage contains a working front-end prototype; it does not connect to a real AI model or store student data.</p>
+ <div class="grid">
+  <article class="card"><div class="icon">📘</div><h3>Topic learning</h3><p>Students select a topic and view a short learning prompt or revision summary.</p></article>
+  <article class="card"><div class="icon">📝</div><h3>Practice quiz</h3><p>Students answer quick questions and receive immediate feedback.</p></article>
+  <article class="card"><div class="icon">📈</div><h3>Progress feedback</h3><p>The prototype displays the quiz score and suggests whether to revise or continue.</p></article>
+ </div>
+ <div class="split">
+  <div class="card"><h3>Project objectives</h3><ul><li>Provide a simple interface for learning support.</li><li>Help students practise with topic-based questions.</li><li>Give instant feedback on answers.</li><li>Demonstrate a structured software project.</li></ul>
+   <h3>Development methodology</h3><ol><li>Identify the learning-support problem.</li><li>Design topic, quiz and result modules.</li><li>Implement the interface and quiz logic.</li><li>Test correct and incorrect answers.</li><li>Review results and plan improvements.</li></ol>
+  </div>
+  <div class="demo">
+   <h3>EduAI mini demo</h3><p class="small">Choose a subject to get a revision prompt.</p>
+   <label for="eduTopic">Select a topic</label><select id="eduTopic"><option value="python">Python basics</option><option value="automata">Finite automata</option><option value="symbolic">Symbolic mathematics</option><option value="events">Event-driven programming</option></select>
+   <button class="btn" id="eduPrompt">Get study prompt</button><div class="result" id="eduResult">Your study prompt will appear here.</div>
+   <hr style="border-color:var(--line);margin:22px 0">
+   <h3>Quick EduAI quiz</h3><p id="eduQuestion">Which keyword is used to define a function in Python?</p>
+   <div id="eduOptions"><label><input type="radio" name="eduq" value="a"> function</label><label><input type="radio" name="eduq" value="b"> def</label><label><input type="radio" name="eduq" value="c"> fun</label></div>
+   <button class="btn" id="eduCheck">Check answer</button><div class="result" id="eduFeedback">Choose an answer.</div>
+  </div>
+ </div>
+ <div class="note"><b>Project implementation note:</b> This is a front-end demonstration of the proposed EduAI project. A full AI-powered version would need a Python backend, an AI service/model, secure API handling and optionally a database. Do not describe this prototype as a fully trained AI system.</div>
+ <h3>Testing plan</h3>
+ <div class="grid">
+  <article class="card"><h3>Test 1</h3><p>Select each topic. The matching study prompt should appear.</p></article>
+  <article class="card"><h3>Test 2</h3><p>Select the correct quiz option. The prototype should show positive feedback.</p></article>
+  <article class="card"><h3>Test 3</h3><p>Select an incorrect option. The prototype should ask the learner to review.</p></article>
+ </div>
+ <h3 style="margin-top:25px">Future enhancements</h3><p class="sub">Integrate a real AI model for doubt-solving and personalised explanations, add user accounts, save learning progress, expand the question bank and build a Python backend.</p>
+</div></section>
+
+<section id="quiz"><div class="wrap">
+ <div class="kicker">07 · Quick assessment</div><h2>Test your understanding</h2><p class="sub">Choose one answer for each question and submit to see your score.</p>
+ <div class="card" id="quizBox">
+  <div class="quizq"><p>1. What does DFA stand for?</p><label><input type="radio" name="q1" value="a"> Dynamic Function Algorithm</label><label><input type="radio" name="q1" value="b"> Deterministic Finite Automaton</label><label><input type="radio" name="q1" value="c"> Data Flow Application</label><div class="small" id="q1Feedback" style="margin-top:9px"></div></div>
+  <div class="quizq"><p>2. Which library is used for symbolic mathematics?</p><label><input type="radio" name="q2" value="a"> Tkinter</label><label><input type="radio" name="q2" value="b"> SymPy</label><label><input type="radio" name="q2" value="c"> Turtle</label><div class="small" id="q2Feedback" style="margin-top:9px"></div></div>
+  <div class="quizq"><p>3. What is an event handler?</p><label><input type="radio" name="q3" value="a"> A function that responds to an event</label><label><input type="radio" name="q3" value="b"> A database table</label><label><input type="radio" name="q3" value="c"> A loop variable</label><div class="small" id="q3Feedback" style="margin-top:9px"></div></div>
+  <div class="quizq"><p>4. Which method starts the Tkinter event loop?</p><label><input type="radio" name="q4" value="a"> start()</label><label><input type="radio" name="q4" value="b"> mainloop()</label><label><input type="radio" name="q4" value="c"> begin()</label><div class="small" id="q4Feedback" style="margin-top:9px"></div></div>
+  <div class="quizq"><p>5. Which is a stage of project development?</p><label><input type="radio" name="q5" value="a"> Testing</label><label><input type="radio" name="q5" value="b"> Guessing</label><label><input type="radio" name="q5" value="c"> Skipping design</label><div class="small" id="q5Feedback" style="margin-top:9px"></div></div>
+  <div class="actions"><button class="btn" id="checkQuiz">Submit answers</button><button class="btn secondary" id="resetQuiz">Reset</button></div><div class="result" id="quizResult">Your score appears here.</div>
+ </div>
+</div></section>
+
+<section id="thanks"><div class="wrap" style="text-align:center">
+ <div class="kicker">08 · Conclusion</div><h2>Thank You!</h2>
+ <p class="sub" style="margin:0 auto 20px">Python project development connects programming concepts with practical solutions. Automata, symbolic computation and event-driven programming demonstrate different approaches to solving computational problems.</p>
+ <span class="pill">Presented by Sudharshan K · RA2511026010254</span><p style="color:var(--muted);margin-top:25px">Questions?</p>
+</div></section>
+</main>
+<footer>Python Project Development and Dissertation · Seminar Website</footer>
+
+<script>
+const $=id=>document.getElementById(id);
+$("menuBtn").onclick=()=>$("navLinks").classList.toggle("open");
+document.querySelectorAll(".links a").forEach(a=>a.onclick=()=>$("navLinks").classList.remove("open"));
+
+$("dfaRun").onclick=()=>{
+ const s=$("dfaInput").value.trim();
+ if(!/^[01]*$/.test(s)){$("dfaResult").textContent="Invalid input. Enter only 0 and 1.";return;}
+ $("dfaResult").textContent=s.endsWith("1")?"ACCEPTED — the string ends in 1.":"REJECTED — the string does not end in 1.";
+};
+$("symRun").onclick=()=>{
+ const a=Number($("symA").value);
+ $("symResult").textContent=`(x + ${a})² = x² + ${2*a}x + ${a*a}`;
+};
+let clickCount=0;
+$("eventBtn").onclick=()=>{$("eventResult").textContent=`Event handler executed! Button clicked ${++clickCount} time(s).`;};
+
+const studyPrompts={
+ python:"Revise variables, data types, conditional statements, loops and functions. Write a small function and test it with different inputs.",
+ automata:"Revise alphabet, string, language, DFA states, transition rules and accepting states. Test binary strings ending in 1.",
+ symbolic:"Revise symbolic variables and SymPy operations such as expand(), simplify(), diff() and integrate().",
+ events:"Revise events, event handlers and event loops. Explain how a Tkinter button calls a function through its command parameter."
+};
+$("eduPrompt").onclick=()=>$("eduResult").textContent=studyPrompts[$("eduTopic").value];
+$("eduCheck").onclick=()=>{
+ const selected=document.querySelector('input[name="eduq"]:checked');
+ $("eduFeedback").textContent=!selected?"Please choose an answer.":selected.value==="b"?"Correct! The def keyword defines a function in Python.":"Not quite. Review the question: Python uses the def keyword to define a function.";
+};
+
+// Output previews for the three separate sample-code examples.
+$("sample1Output").textContent = "Click “Run Sample 1” to see the output.";
+document.querySelectorAll(".sample-output-btn").forEach(button=>{
+ button.addEventListener("click",()=>{
+  const target=button.dataset.output;
+  if(target==="sample1"){
+   $("sample1Output").textContent='True\nFalse';
+  }else if(target==="sample2"){
+   $("sample2Output").textContent='Expanded: x**2 + 4*x + 4\nDerivative: 2*x + 4\nIntegral: x**3/3 + 2*x**2 + 4*x\nSolve: [-5, 1]';
+  }else if(target==="sample3"){
+   $("sample3Output").textContent='Tkinter desktop window: "Event Demo"\nButton displayed: "Click Me"\nAfter clicking the button:\nMessage box: "Button clicked!"\n\nNote: This is the expected output preview. Run the Tkinter code in desktop Python to open the actual GUI window.';
+  }
+ });
+});
+
+const defaultCode=$("pythonCode").value;let pyodide=null;
+$("loadPy").onclick=async()=>{
+ const b=$("loadPy");b.disabled=true;$("pyStatus").textContent="Loading…";$("pythonOutput").textContent="Loading Python runtime…";
+ try{if(!pyodide)pyodide=await loadPyodide();$("pyStatus").textContent="Ready";$("pythonOutput").textContent="Python loaded. Click Run code.";}
+ catch(e){$("pyStatus").textContent="Failed";$("pythonOutput").textContent="Could not load Python. Check internet and retry.\n"+e;}
+ finally{b.disabled=false;}
+};
+$("runPy").onclick=async()=>{
+ if(!pyodide){$("pythonOutput").textContent="Load Python first.";return;}
+ let out="";const b=$("runPy");b.disabled=true;
+ try{pyodide.setStdout({batched:s=>out+=s+"\n"});pyodide.setStderr({batched:s=>out+="ERROR: "+s+"\n"});await pyodide.runPythonAsync($("pythonCode").value);$("pythonOutput").textContent=out.trimEnd()||"Program completed.";}
+ catch(e){$("pythonOutput").textContent=String(e);}
+ finally{b.disabled=false;}
+};
+$("resetPy").onclick=()=>{$("pythonCode").value=defaultCode;$("pythonOutput").textContent="Sample restored. Load Python and run it.";};
+
+$("checkQuiz").onclick=()=>{
+ const answers={q1:"b",q2:"b",q3:"a",q4:"b",q5:"a"};
+ const explanations={
+  q1:"Correct answer: Deterministic Finite Automaton. DFA is the full form.",
+  q2:"Correct answer: SymPy. It is used for symbolic mathematics.",
+  q3:"Correct answer: A function that responds to an event. An event handler runs when its event occurs.",
+  q4:"Correct answer: mainloop(). It starts Tkinter's event loop.",
+  q5:"Correct answer: Testing. Testing checks whether the implementation works as expected."
+ };
+ let score=0,answered=0;
+ for(const [q,a] of Object.entries(answers)){
+  const v=document.querySelector(`input[name="${q}"]:checked`);
+  const feedback=$(q+"Feedback");
+  if(v){
+   answered++;
+   if(v.value===a){score++;feedback.textContent="✓ Correct! "+explanations[q];feedback.style.color="var(--mint)";}
+   else{feedback.textContent="✗ Wrong answer. "+explanations[q];feedback.style.color="#ff9b9b";}
+  }else{
+   feedback.textContent="Not answered. "+explanations[q];
+   feedback.style.color="#ffd27a";
+  }
+ }
+ $("quizResult").textContent=`Score: ${score}/5. Answered: ${answered}/5.`+(answered<5?" Please answer the unanswered questions.":score===5?" Excellent!":" Review the feedback above and try again.");
+};
+$("resetQuiz").onclick=()=>{
+ document.querySelectorAll('#quizBox input').forEach(x=>x.checked=false);
+ for(let i=1;i<=5;i++){$("q"+i+"Feedback").textContent="";$("q"+i+"Feedback").style.color="";}
+ $("quizResult").textContent="Your score appears here.";
+};
+</script>
+<script src="https://cdn.jsdelivr.net/pyodide/v0.27.7/full/pyodide.js"></script>
+</body>
+</html>
